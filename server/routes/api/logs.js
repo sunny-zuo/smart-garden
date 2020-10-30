@@ -12,4 +12,14 @@ router.get("/:datetime", (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
+// @route GET api/logs
+// @desc Get all logs
+// @access Public
+router.get("/", (req, res) => {
+    Log.find()
+      .then(logs => res.json(logs))
+      .catch(err => res.status(400).json(err));
+  }
+);
+
 module.exports = router;
