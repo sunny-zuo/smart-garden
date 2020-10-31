@@ -16,8 +16,8 @@ router.get("/:datetime", (req, res) => {
 // @desc Get log between specified datetimes
 // @access Public
 
-router.get("/:starttime/:endtime", (req, res) => {
-  Log.find({datetime: {$gte: req.params.starttime, $lte: req.params.endtime}})
+router.get("/range/:starttime/:endtime", (req, res) => {
+  Log.find({datetime: {$gte: new Date(req.params.starttime), $lte: new Date(req.params.endtime)}})
       .then(logs => res.json(logs))
       .catch(err => res.status(400).json(err));
 });
@@ -32,23 +32,24 @@ router.get("/", (req, res) => {
   }
 );
 
+/*
 // @route POST api/logs/add
 // @desc Add a log
 // @access Public
 router.post('/add', async (req, res) => {
   
   const new_log = await new Log({
-    datetime: new Date(),
-    temperature: 20,
-    moisture: 54,
-    humidity: 65,
-    brightness: 21
+    datetime: new Date().setFullYear("2019"),
+    temperature: 15,
+    moisture: 90,
+    humidity: 25,
+    brightness: 60
   });
 
   new_log.save()
     .then(log => res.json(log))
     .catch(err => res.status(400).json(err));
 });
-
+*/
 
 module.exports = router;
