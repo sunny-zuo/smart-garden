@@ -1,6 +1,3 @@
-const SerialPort = require('serialport');
-const Readline = require('@serialport/parser-readline');
-
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,7 +6,6 @@ require('dotenv').config();
 
 const app = express();
 const serverPort = process.env.PORT || 5000;
-
 
 // Routes
 const logs = require("./routes/api/logs");
@@ -40,19 +36,8 @@ app.listen(serverPort, () => {
   console.log(`Server is running on port ${serverPort}`);
 })
 
-
-// Serialport
+// Serial communication
 if (process.env.ENABLE_SERIAL === "TRUE") {
-  const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
-  const parser = new Readline();
-  port.pipe(parser);
-
-  parser.on('data', line => console.log(`> ${line}`));
+  const serial = require('./serial');
+  serial.init();
 }
-
-/* This code lists all SerialPorts
-SerialPort.list().then(
-    ports => ports.forEach(console.log),
-    err => console.error(err)
-  )
-*/
