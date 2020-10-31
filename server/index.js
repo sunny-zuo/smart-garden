@@ -1,10 +1,10 @@
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
-const port = new SerialPort('COM3', { baudRate: 9600 });
 
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -20,6 +20,9 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('MongoDB connection established successfully');
 })
+
+// CORS middleware - we're allowing all origins by not giving any arguments
+app.use(cors());
 
 // Bodyparser middleware
 app.use(
@@ -38,10 +41,13 @@ app.listen(serverPort, () => {
 
 
 // Serialport
-const parser = new Readline();
-port.pipe(parser);
+if (process.env.SERVER_MODE != "API_ONLY") {
+  const port = new SerialPort('COM3', { baudRate: 9600 });
+  const parser = new Readline();
+  port.pipe(parser);
 
-parser.on('data', line => console.log(`> ${line}`));
+  parser.on('data', line => console.log(`> ${line}`));
+}
 
 /* This code lists all SerialPorts
 SerialPort.list().then(
