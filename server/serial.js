@@ -4,10 +4,10 @@ const Log = require('./models/Log');
 
 // we store temporary data in a json object
 const tempLogData = {
-    temperature: [],
-    moisture: [],
-    humidity: [],
-    brightness: []
+    temperature: [0],
+    moisture: [0],
+    humidity: [0],
+    brightness: [0]
 }
 
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
@@ -23,7 +23,7 @@ parser.on('data', (line) => {
         case 'temperature':
             tempLogData.temperature.push(dataValue);
             break;
-        case 'moisture': 
+        case 'moisture':
             tempLogData.moisture.push(dataValue);
             break;
         case 'humidity':
@@ -33,11 +33,11 @@ parser.on('data', (line) => {
             tempLogData.brightness.push(dataValue);
             break;
     }
-    
+
 });
 
 function init() {
-    setInterval(logData, 1000 * 10); // logData every 10 minutes
+    setInterval(logData, 1000 * 60 * 10); // logData every 10 minutes
 }
 
 async function logData() {
@@ -52,10 +52,10 @@ async function logData() {
 
     new_log.save().then(log => {
         // reset the arrays
-        tempLogData.temperature = [];
-        tempLogData.moisture = [];
-        tempLogData.humidity = [];
-        tempLogData.brightness = [];
+        tempLogData.temperature = [0];
+        tempLogData.moisture = [0];
+        tempLogData.humidity = [0];
+        tempLogData.brightness = [0];
     }).catch(err => {
         console.log(`Error saving logs: ${err}`);
     });
