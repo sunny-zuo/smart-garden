@@ -19,7 +19,21 @@ parser.on('data', (line) => {
     const dataType = line.split(": ")[0];
     const dataValue = parseFloat(line.split(": ")[1]);
     console.log(`Received data of type '${dataType}' with value '${dataValue}'`)
-    tempLogData[dataType].push(dataValue);
+    switch(dataType) {
+        case 'temperature':
+            tempLogData.temperature.push(dataValue);
+            break;
+        case 'moisture': 
+            tempLogData.moisture.push(dataValue);
+            break;
+        case 'humidity':
+            tempLogData.humidity.push(dataValue);
+            break;
+        case 'brightness':
+            tempLogData.brightness.push(dataValue);
+            break;
+    }
+    
 });
 
 function init() {
