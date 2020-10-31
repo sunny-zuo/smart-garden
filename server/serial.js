@@ -18,15 +18,15 @@ parser.on('data', (line) => {
     // we get data in the form of "moisture: 0.01". By splitting with ": ", we get the type in the zero index and the value in the first index
     const dataType = line.split(": ")[0];
     const dataValue = parseFloat(line.split(": ")[1]);
-    // console.log(`Received data of type '${dataType}' with value '${dataValue}'`)
+    console.log(`Received data of type '${dataType}' with value '${dataValue}'`)
     tempLogData[dataType].push(dataValue);
 });
 
 function init() {
-    setInterval(logData, 1000 * 60 * 10); // logData every 10 minutes
+    setInterval(logData, 1000 * 10); // logData every 10 minutes
 }
 
-function logData() {
+async function logData() {
     const new_log = await new Log({
         datetime: new Date(),
         // we average all values in the array and store it as a singular log
@@ -49,7 +49,7 @@ function logData() {
 
 function averageValues(array) {
     // average the values and round to 4 decimal places
-    return Math.round(array.reduce((prev, curr), prev + curr) / array.length * 10000) / 10000;
+    return Math.round(array.reduce((prev, curr) => prev + curr) / array.length * 10000) / 10000;
 }
 
 /* This code lists all SerialPorts
