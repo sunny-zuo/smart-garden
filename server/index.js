@@ -10,6 +10,7 @@ require('dotenv').config();
 const app = express();
 const serverPort = process.env.PORT || 5000;
 
+
 // Routes
 const logs = require("./routes/api/logs");
 
@@ -42,7 +43,7 @@ app.listen(serverPort, () => {
 
 // Serialport
 if (process.env.ENABLE_SERIAL === "TRUE") {
-  const port = new SerialPort('COM3', { baudRate: 9600 });
+  const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
   const parser = new Readline();
   port.pipe(parser);
 
