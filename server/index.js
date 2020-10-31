@@ -41,7 +41,7 @@ app.listen(serverPort, () => {
 
 
 // Serialport
-if (process.env.SERVER_MODE != "API_ONLY") {
+if (process.env.ENABLE_SERIAL === "TRUE") {
   const port = new SerialPort('COM3', { baudRate: 9600 });
   const parser = new Readline();
   port.pipe(parser);
