@@ -19,6 +19,7 @@ export default function App() {
         .then((response) => response.json())
         .then((logs) => {
           setLogs(logs)
+          console.log(logs);
         })
 		} catch (error) {
 			console.log(error);
@@ -48,11 +49,22 @@ export default function App() {
 			console.log(error);
 		}
   }
+  const formatDate = date => {
+    const hour = new Date(date).getHours();
+    const minutes = new Date(date).getMinutes();
+    console.log(date);
+    console.log(hour);
+    console.log(minutes);
+    return `${hour}:${minutes}`;
+  }
 
   useEffect(() => {
-		getAllLogs();
+    getAllLogs();
 	}, []);
 
+  if (logs == null) {
+    return null;
+  }
 
   return (
   
@@ -61,17 +73,13 @@ export default function App() {
       <GraphHeader title = 'Moisture over time: ' setColor = 'lightskyblue'/>
       <LineChart
         data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: logs.map(log => 
+            {const date = formatDate(log.datetime);
+              return date;})
+            .slice(-5),
           datasets: [
             {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100
-              ]
+              data: logs.map(log => log.moisture*100).slice(-5)
             }
           ]
         }}
@@ -104,17 +112,13 @@ export default function App() {
       <GraphHeader title = 'Light over time: ' setColor = 'yellow'/>
       <LineChart
         data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: logs.map(log => 
+            {const date = formatDate(log.datetime);
+            return date;})
+            .slice(-5),
           datasets: [
             {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100
-              ]
+              data: logs.map(log => log.brightness).slice(-5)
             }
           ]
         }}
