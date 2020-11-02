@@ -13,8 +13,10 @@ function measureBrightness(useExisting = false, fileName = "temp.jpg") {
         py.stdout.on('data', data => {
             const output = data.toString();
             const dataType = output.split(": ")[0];
-            const dataValue = parseFloat(output.split(": ")[1]);
+            // brightness is from 0-255, so we convert it to a decimal rounded to 4 decimal points
+            const dataValue = Math.round(parseFloat(output.split(": ")[1]) / 255 * 10000) / 10000;
             if (dataType === "brightness") {
+                // if the data is in the right format, assume success and resolve the value
                 resolve(dataValue);
             }
             else {
@@ -23,6 +25,5 @@ function measureBrightness(useExisting = false, fileName = "temp.jpg") {
         });
     });
 }
-
 
 module.exports = { measureBrightness };
