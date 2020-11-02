@@ -89,9 +89,11 @@ export default function App() {
         yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: "#e26a00",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
+          backgroundColor: "#fff",
+          backgroundGradientToOpacity: 0.4,
+          backgroundGradientFromOpacity: 0.4,
+          backgroundGradientFrom: "#fff",
+          backgroundGradientTo: "#fff",
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -128,9 +130,11 @@ export default function App() {
         yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: "#e26a00",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
+          backgroundColor: "#fff",
+          backgroundGradientToOpacity: 0.4,
+          backgroundGradientFromOpacity: 0.4,
+          backgroundGradientFrom: "#fff",
+          backgroundGradientTo: "#fff",
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -157,6 +161,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 60,
+    backgroundColor: darkGreen2
   },
   text: {
     fontSize: 50,

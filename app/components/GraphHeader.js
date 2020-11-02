@@ -6,7 +6,7 @@ const GraphHeader = (props) => {
     graphHeader: {
         height: 60,
         padding: 15,
-        backgroundColor: props.setColor
+        //backgroundColor: "#fff"
     },
     graphHeaderText: {
         color: '#fff',
