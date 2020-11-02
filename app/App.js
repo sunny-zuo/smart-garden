@@ -1,6 +1,7 @@
 import React, { useState, useEffect, props } from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import Header from './components/Header';
+import {lightGreen1, lightGreen2, lightGreen3, darkGreen1, darkGreen2} from "./components/Colors";
 import {
   LineChart,
 } from "react-native-chart-kit";
