@@ -71,7 +71,7 @@ export default function App() {
   
     <View style={styles.container}>
       <Header />
-      <GraphHeader title = 'Moisture over time: ' setColor = 'lightskyblue'/>
+      <GraphHeader title = 'Moisture over time: '/>
       <LineChart
         data={{
           labels: logs.map(log => 
@@ -112,7 +112,7 @@ export default function App() {
           borderRadius: 16
         }}
       />
-      <GraphHeader title = 'Light over time: ' setColor = 'yellow'/>
+      <GraphHeader title = 'Light over time: '/>
       <LineChart
         data={{
           labels: logs.map(log => 
@@ -153,6 +153,7 @@ export default function App() {
           borderRadius: 16
         }}
       />
+      
     </View>
   );
 };
