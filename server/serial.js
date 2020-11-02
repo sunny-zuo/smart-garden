@@ -1,13 +1,13 @@
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 const Log = require('./models/Log');
+const { measureBrightness } = require('./camera/camera');
 
 // we store temporary data in a json object
 const tempLogData = {
-    temperature: [0],
-    moisture: [0],
-    humidity: [0],
-    brightness: [0]
+    temperature: [],
+    moisture: [],
+    humidity: []
 }
 
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
@@ -29,9 +29,6 @@ parser.on('data', (line) => {
         case 'humidity':
             tempLogData.humidity.push(dataValue);
             break;
-        case 'brightness':
-            tempLogData.brightness.push(dataValue);
-            break;
     }
 
 });
@@ -41,29 +38,36 @@ function init() {
 }
 
 async function logData() {
+    const brightness = await measureBrightness().catch(err => {
+        console.log(err);
+    });
+
     const new_log = await new Log({
         datetime: new Date(),
         // we average all values in the array and store it as a singular log
         temperature: averageValues(tempLogData.temperature),
         moisture: averageValues(tempLogData.moisture),
         humidity: averageValues(tempLogData.humidity),
-        brightness: averageValues(tempLogData.brightness)
+        brightness: brightness
     });
 
     new_log.save().then(log => {
         // reset the arrays
-        tempLogData.temperature = [0];
-        tempLogData.moisture = [0];
-        tempLogData.humidity = [0];
-        tempLogData.brightness = [0];
+        tempLogData.temperature = [];
+        tempLogData.moisture = [];
+        tempLogData.humidity = [];
     }).catch(err => {
         console.log(`Error saving logs: ${err}`);
     });
 };
 
 function averageValues(array) {
-    // average the values and round to 4 decimal places
-    return Math.round(array.reduce((prev, curr) => prev + curr) / array.length * 10000) / 10000;
+    if (array.length > 0) {
+        // average the values and round to 4 decimal places
+        return Math.round(array.reduce((prev, curr) => prev + curr) / array.length * 10000) / 10000;
+    } else {
+        return 0;
+    }
 }
 
 /* This code lists all SerialPorts
