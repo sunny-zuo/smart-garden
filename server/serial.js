@@ -7,17 +7,40 @@ const { measureBrightness } = require('./camera/camera');
 const tempLogData = {
     temperature: [],
     moisture: [],
-    humidity: []
+    humidity: [],
+    brightness: []
 }
 
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
 const parser = new Readline();
 port.pipe(parser);
 
+
+
+function recordBrightness() {
+    //console.log(`Awaiting brightness reading`);
+    measureBrightness().then((brightness) => {
+        console.log(`Got brightness: ${brightness}`);
+        tempLogData.brightness.push(brightness);
+    });
+}
+
+setInterval(recordBrightness, 1000 * 10);
+
+//For writing serial input later
+// function sayHelloToArduino() {
+//     port.write("SERVER SAYS: who are you Arduino?\n");
+// }
+
+
+// setInterval(sayHelloToArduino, 1000 * 10);
+
 parser.on('data', (line) => {
     // we get data in the form of "moisture: 0.01". By splitting with ": ", we get the type in the zero index and the value in the first index
+
     const dataType = line.split(": ")[0];
     const dataValue = parseFloat(line.split(": ")[1]);
+
     console.log(`Received data of type '${dataType}' with value '${dataValue}'`)
     switch(dataType) {
         case 'temperature':
@@ -38,9 +61,8 @@ function init() {
 }
 
 async function logData() {
-    const brightness = await measureBrightness().catch(err => {
-        console.log(err);
-    });
+
+    console.log(`Preparing to send logs...`);
 
     const new_log = await new Log({
         datetime: new Date(),
@@ -48,17 +70,22 @@ async function logData() {
         temperature: averageValues(tempLogData.temperature),
         moisture: averageValues(tempLogData.moisture),
         humidity: averageValues(tempLogData.humidity),
-        brightness: brightness
+        brightness: averageValues(tempLogData.brightness)
     });
+
 
     new_log.save().then(log => {
         // reset the arrays
         tempLogData.temperature = [];
         tempLogData.moisture = [];
         tempLogData.humidity = [];
+        tempLogData.brightness = [];
+        console.log(`Sent logs`);
     }).catch(err => {
         console.log(`Error saving logs: ${err}`);
     });
+
+
 };
 
 function averageValues(array) {
