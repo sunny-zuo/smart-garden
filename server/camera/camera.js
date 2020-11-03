@@ -1,10 +1,20 @@
+const PiCamera = require('pi-camera');
+const camera = new PiCamera({
+    mode: 'photo',
+    output: `${__dirname}/latest.jpg`,
+    width: 1920,
+    height: 1080,
+    nopreview: true
+})
 // function that calls the python script
 // by default, measureBrightness will take a new photo. 
 // If useExisting is set to true, we will instead use an existing photo determined the fileName parameter
-function measureBrightness(useExisting = false, fileName = "temp.jpg") {
-    return new Promise((resolve, reject) => {
+function measureBrightness(useExisting = false, fileName = "latest.jpg") {
+    return new Promise(async (resolve, reject) => {
         if (!useExisting) {
-            // TODO: Take a new photo
+            await camera.snap().catch(err => {
+                console.log(`Error taking new photo: ${err}`);
+            });
         }
 
         let spawn = require('child_process').spawn;
