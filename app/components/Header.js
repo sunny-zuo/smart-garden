@@ -17,8 +17,13 @@ const styles = StyleSheet.create({
         backgroundColor: lightGreen1
     },
     text: {
+<<<<<<< HEAD
         color: '#000000',
         fontSize: 23,
+=======
+        color: '#fff',
+        fontSize: 30,
+>>>>>>> 058bfaba6112f3dd2b94af9dc9c0392dd5e7bcd2
         textAlign: 'center',
     },
 });

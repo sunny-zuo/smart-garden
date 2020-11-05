@@ -12,6 +12,8 @@ const GraphHeader = (props) => {
         color: '#fff',
         fontSize: 23,
         textAlign: 'center',
+        marginVertical: 10,
+
     },
 });
    
