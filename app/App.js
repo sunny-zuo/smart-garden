@@ -1,5 +1,5 @@
 import React, { useState, useEffect, props } from 'react';
-import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView, Button } from 'react-native';
 import Header from './components/Header';
 import {lightGreen1, lightGreen2, lightGreen3, darkGreen1, darkGreen2} from "./components/Colors";
 import {
@@ -20,7 +20,6 @@ export default function App() {
         .then((response) => response.json())
         .then((logs) => {
           setLogs(logs)
-          console.log(logs);
         })
 		} catch (error) {
 			console.log(error);
@@ -50,12 +49,21 @@ export default function App() {
 			console.log(error);
 		}
   }
+  const waterPlant = () => {
+    const url = `http://159.203.41.214:5000/api/controls/water`;
+		try {
+      fetch(url, {method: "POST",})
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+        })
+		} catch (error) {
+			console.log(error);
+		}
+  }
   const formatDate = date => {
     const hour = new Date(date).getHours();
     const minutes = new Date(date).getMinutes();
-    console.log(date);
-    console.log(hour);
-    console.log(minutes);
     return `${hour}:${minutes}`;
   }
 
@@ -71,6 +79,11 @@ export default function App() {
   <SafeAreaView style = {styles.container}>
     <ScrollView style={styles.scrollView}>
       <Header />
+      <View style={{marginTop: 20, marginLeft: 100, marginRight: 100}}>
+        <Button 
+          onPress={() => waterPlant()}
+          title="Water Plant"/>
+      </View>
       <GraphHeader title = 'Moisture over time: '/>
       <LineChart
         data={{
@@ -130,11 +143,11 @@ export default function App() {
         yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: lightGreen2,
+          backgroundColor: lightGreen1,
           backgroundGradientToOpacity: 0.4,
           backgroundGradientFromOpacity: 0.4,
-          backgroundGradientFrom: lightGreen2,
-          backgroundGradientTo: lightGreen2,
+          backgroundGradientFrom: lightGreen1,
+          backgroundGradientTo: lightGreen1,
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -171,11 +184,11 @@ export default function App() {
         yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: lightGreen3,
+          backgroundColor: lightGreen1,
           backgroundGradientToOpacity: 0.4,
           backgroundGradientFromOpacity: 0.4,
-          backgroundGradientFrom: lightGreen3,
-          backgroundGradientTo: lightGreen3,
+          backgroundGradientFrom: lightGreen1,
+          backgroundGradientTo: lightGreen1,
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -212,11 +225,11 @@ export default function App() {
         yAxisSuffix="°"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: darkGreen1,
+          backgroundColor: lightGreen1,
           backgroundGradientToOpacity: 0.4,
           backgroundGradientFromOpacity: 0.4,
-          backgroundGradientFrom: darkGreen1,
-          backgroundGradientTo: darkGreen1,
+          backgroundGradientFrom: lightGreen1,
+          backgroundGradientTo: lightGreen1,
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
