@@ -33,7 +33,7 @@ setInterval(recordBrightness, 1000 * 10);
 // }
 
 function waterPlant() {
-    port.write("Water plant\n");
+    port.write("PUMP_ON\n");
 }
 
 // setInterval(sayHelloToArduino, 1000 * 10);
