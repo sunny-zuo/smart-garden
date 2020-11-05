@@ -32,6 +32,9 @@ setInterval(recordBrightness, 1000 * 10);
 //     port.write("SERVER SAYS: who are you Arduino?\n");
 // }
 
+function waterPlant() {
+    port.write("Water plant\n");
+}
 
 // setInterval(sayHelloToArduino, 1000 * 10);
 
@@ -104,4 +107,4 @@ SerialPort.list().then(
   )
 */
 
-module.exports = { init };
+module.exports = { init, waterPlant };
