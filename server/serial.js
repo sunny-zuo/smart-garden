@@ -27,16 +27,13 @@ function recordBrightness() {
 
 setInterval(recordBrightness, 1000 * 10);
 
-//For writing serial input later
-// function sayHelloToArduino() {
-//     port.write("SERVER SAYS: who are you Arduino?\n");
-// }
-
 function waterPlant() {
+    console.log(`Initiating pumping`);
     port.write("PUMP_ON\n");
 }
 
-// setInterval(sayHelloToArduino, 1000 * 10);
+//for debugging, don't do this unless you want to drown my house
+setInterval(waterPlant, 1000 * 10);
 
 parser.on('data', (line) => {
     // we get data in the form of "moisture: 0.01". By splitting with ": ", we get the type in the zero index and the value in the first index
