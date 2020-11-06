@@ -10,15 +10,24 @@
 #define DHTPIN 2     
 #define DHTTYPE DHT11   
 
+int pumpRelayPin = 4;
+//int relayPin2 = 5;
+
 #define MOISTUREPIN A0
 
 DHT dht(DHTPIN, DHTTYPE);
 
 int measurementInterval = 10000;
 
+int pumpDuration = 2000;
+
 unsigned long time_now = 0;
 
+unsigned long pump_now = 0;
+
 String incomingByte;
+
+bool pumping;
 
 typedef struct tempHumidityReading  { 
 
@@ -35,6 +44,8 @@ void setup() {
   Serial.begin(9600);
 
   dht.begin();
+
+  pinMode(pumpRelayPin,OUTPUT);
 }
 
 float getMoistureReading() {
@@ -84,20 +95,23 @@ void loop() {
 //reading serial data for later
   if (Serial.available() > 0) {
     incomingByte = Serial.readString();
-
-//    Serial.print("ARDUINO RECIEVED: ");
-//    Serial.println(incomingByte);
+    pumping = true;
+    pump_now = millis();
+  
+    digitalWrite(pumpRelayPin, LOW); //turn pump switch ON
+    
+    Serial.print("ARDUINO RECIEVED: ");
+    Serial.println(incomingByte);
 //    Serial.println("ARDUINO SAYS: Whats it to ya?");
   }
-//bruh
+
+  if (pumping && ((unsigned long) (millis() - pump_now) > pumpDuration)){
+    pumping = false;
+  }
   
-
-
+  else if (!pumping) {
+    digitalWrite(pumpRelayPin, HIGH); //turn pump switch OFF
+  }
   
-
-
-
-
-  
-
 }
+ 
