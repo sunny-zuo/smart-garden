@@ -10,6 +10,7 @@ const serverPort = process.env.PORT || 5000;
 // Routes
 const logs = require("./routes/api/logs");
 const controls = require("./routes/api/controls");
+const image = require("./routes/api/image");
 
 // Mongo Atlas Config
 const uri = process.env.MONGO_URI;
@@ -33,6 +34,7 @@ app.use(bodyParser.json());
 // Routes
 app.use("/api/logs", logs);
 app.use("/api/controls", controls);
+app.use("/api/image", image)
 
 app.listen(serverPort, () => {
   console.log(`Server is running on port ${serverPort}`);
