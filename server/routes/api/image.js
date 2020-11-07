@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const { takePhoto } = require("../../camera/camera");
 
 // @route GET api/image/latest
 // @desc Get the latest image taken
@@ -11,8 +10,13 @@ router.get("/latest", (req, res) => {
     res.sendFile(path.normalize(`${__dirname}/../../camera/latest.jpg`));
 });
 
-router.get("/take-picture", async (req, res) => {
+// @route POST api/image/take-picture
+// @desc Take a new picture
+// @access Public
+
+router.post("/take-picture", async (req, res) => {
     if (process.env.ENABLE_SERIAL == "TRUE") {
+        const { takePhoto } = require("../../camera/camera");
         await takePhoto().catch(err => {
             res.status(500).send({ success: false, error: err });
         });
