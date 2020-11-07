@@ -8,7 +8,7 @@
 */*.mobileprovision
 */*.orig.*
 */web-build/
-server/camera/camera.js
+server/camera/latest.jpg
 
 # macOS
 */.DS_Store
