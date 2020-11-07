@@ -79,7 +79,7 @@ export default function App() {
   <SafeAreaView style = {styles.container}>
     <ScrollView style={styles.scrollView}>
       <Header />
-      <View style={{marginTop: 20, marginLeft: 100, marginRight: 100, height: 20}}>
+        <View style={{ marginTop: 20, marginBottom: -20, marginLeft: 100, marginRight: 100, height: 10}}>
         <Button
           onPress={() => waterPlant()}
           title="Water Plant"/>
