@@ -61,6 +61,18 @@ export default function App() {
 			console.log(error);
 		}
   }
+  const takePicture = () => {
+    const url = `http://10.0.0.11:5000/api/image/take-picture`;
+		try {
+      fetch(url, {method: "POST",})
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+        })
+		} catch (error) {
+			console.log(error);
+		}
+  }
   const formatDate = date => {
     const hour = new Date(date).getHours();
     const minutes = new Date(date).getMinutes();
@@ -79,10 +91,15 @@ export default function App() {
   <SafeAreaView style = {styles.container}>
     <ScrollView style={styles.scrollView}>
       <Header />
-        <View style={{ marginTop: 20, marginBottom: -20, marginLeft: 100, marginRight: 100, height: 10}}>
+      <View style={{ marginTop: 20, marginBottom: 20, marginLeft: 100, marginRight: 100, height: 10}}>
         <Button
           onPress={() => waterPlant()}
           title="Water Plant"/>
+      </View>
+      <View style={{ marginTop: 20, marginBottom: -20, marginLeft: 100, marginRight: 100, height: 10}}>
+        <Button
+          onPress={() => takePicture()}
+          title="Take Picture"/>
       </View>
       <View style={{ alignItems: 'center', height: 300 }}>
           <Image source={{ uri: 'http://159.203.41.214:5000/api/image/latest' }} style={{ width: '90%', height: undefined, aspectRatio: 1, resizeMode: 'contain', borderRadius: 10}}></Image>
