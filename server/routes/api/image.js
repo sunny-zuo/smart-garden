@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const { takePhoto } = require("../../camera/camera");
 
 // @route GET api/image/latest
 // @desc Get the latest image taken
@@ -8,6 +9,17 @@ const path = require("path");
 
 router.get("/latest", (req, res) => {
     res.sendFile(path.normalize(`${__dirname}/../../camera/latest.jpg`));
+});
+
+router.get("/take-picture", async (req, res) => {
+    if (process.env.ENABLE_SERIAL == "TRUE") {
+        await takePhoto().catch(err => {
+            res.status(500).send({ success: false, error: err });
+        });
+        res.send({ success: true });
+    } else {
+        res.status(500).send({ success: false, error: 'Can\'t take photo on remote server - test on Umut\'s Network' });
+    }
 });
 
 module.exports = router;

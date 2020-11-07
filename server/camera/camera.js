@@ -40,6 +40,15 @@ function measureBrightness(useExisting = false, fileName = "latest.jpg") {
     });
 }
 
+function takePhoto() {
+    return new Promise(async (resolve, reject) => {
+        await camera.snap().catch(err => {
+            reject(`Error taking new photo: ${err}`)
+        });
+        resolve({ success: true });
+    });
+}
+
 //measureBrightness().then((brightness) => console.log(`Got brightness: ${brightness}`));
 
-module.exports = { measureBrightness };
+module.exports = { measureBrightness, takePhoto };
