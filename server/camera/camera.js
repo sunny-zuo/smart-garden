@@ -28,7 +28,7 @@ function measureBrightness(useExisting = false, fileName = "latest.jpg") {
             const output = data.toString();
             const dataType = output.split(": ")[0];
             // brightness is from 0-255, so we convert it to a decimal rounded to 4 decimal points
-            const dataValue = Math.round(parseFloat(output.split(": ")[1]) / 255 * 10000) / 10000;
+            const dataValue = Math.round(parseFloat(output.split(": ")[1]) / 255 * 10000) / 10000 * 100; // * 100 to convert from 0-1 scale to 0-100 scale
             if (dataType === "brightness") {
                 // if the data is in the right format, assume success and resolve the value
                 resolve(dataValue);
