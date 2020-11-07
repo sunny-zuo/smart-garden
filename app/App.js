@@ -50,7 +50,7 @@ export default function App() {
 		}
   }
   const waterPlant = () => {
-    const url = `http://10.0.0.11/api/controls/water`;
+    const url = `http://10.0.0.11:5000/api/controls/water`;
 		try {
       fetch(url, {method: "POST",})
         .then((response) => response.json())
