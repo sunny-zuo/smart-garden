@@ -1,5 +1,5 @@
 import React, { useState, useEffect, props } from 'react';
-import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView, Button, Image } from 'react-native';
 import Header from './components/Header';
 import {lightGreen1, lightGreen2, lightGreen3, darkGreen1, darkGreen2} from "./components/Colors";
 import {
@@ -79,10 +79,13 @@ export default function App() {
   <SafeAreaView style = {styles.container}>
     <ScrollView style={styles.scrollView}>
       <Header />
-      <View style={{marginTop: 20, marginLeft: 100, marginRight: 100}}>
+      <View style={{marginTop: 20, marginLeft: 100, marginRight: 100, height: 20}}>
         <Button
           onPress={() => waterPlant()}
           title="Water Plant"/>
+      </View>
+      <View style={{ alignItems: 'center', height: 300 }}>
+          <Image source={{ uri: 'http://159.203.41.214:5000/api/image/latest' }} style={{ width: '90%', height: undefined, aspectRatio: 1, resizeMode: 'contain', borderRadius: 10}}></Image>
       </View>
       <GraphHeader title = 'Moisture over time: '/>
       <LineChart
