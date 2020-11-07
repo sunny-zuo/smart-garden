@@ -121,6 +121,7 @@ export default function App() {
         height={220}
         yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
+        fromZero={true}
         chartConfig={{
           backgroundColor: lightGreen1,
           backgroundGradientToOpacity: 0.4,
@@ -162,6 +163,7 @@ export default function App() {
         height={220}
         yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
+        fromZero={true}
         chartConfig={{
           backgroundColor: lightGreen1,
           backgroundGradientToOpacity: 0.4,
@@ -203,6 +205,7 @@ export default function App() {
         height={220}
         yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
+        fromZero={true}
         chartConfig={{
           backgroundColor: lightGreen1,
           backgroundGradientToOpacity: 0.4,
@@ -244,6 +247,7 @@ export default function App() {
         height={220}
         yAxisSuffix="°"
         yAxisInterval={1} // optional, defaults to 1
+        fromZero={true}
         chartConfig={{
           backgroundColor: lightGreen1,
           backgroundGradientToOpacity: 0.4,
