@@ -83,26 +83,24 @@ void loop() {
     }
     
     Serial.print(F("moisture: "));
-  
-    Serial.println(m);
-  
+    Serial.println(m);  
     Serial.print(F("humidity: "));
     Serial.println(h);
     Serial.print(F("temperature: "));
     Serial.println(t);
   }
 
-//reading serial data for later
+//reading serial data, for now any serial input will trigger pump
   if (Serial.available() > 0) {
     incomingByte = Serial.readString();
     pumping = true;
     pump_now = millis();
   
     digitalWrite(pumpRelayPin, LOW); //turn pump switch ON
-    
-    Serial.print("ARDUINO RECIEVED: ");
-    Serial.println(incomingByte);
-//    Serial.println("ARDUINO SAYS: Whats it to ya?");
+
+    //debugging, will mess with server in current state
+    //Serial.print("ARDUINO RECIEVED: ");
+    //Serial.println(incomingByte);
   }
 
   if (pumping && ((unsigned long) (millis() - pump_now) > pumpDuration)){

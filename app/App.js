@@ -12,7 +12,7 @@ const { height } = Dimensions.get("window");
 
 export default function App() {
   const [logs, setLogs] = useState();
-  
+
   const getAllLogs = async() => {
     const url = "http://159.203.41.214:5000/api/logs";
 		try {
@@ -50,7 +50,7 @@ export default function App() {
 		}
   }
   const waterPlant = () => {
-    const url = `http://159.203.41.214:5000/api/controls/water`;
+    const url = `http://10.0.0.11/api/controls/water`;
 		try {
       fetch(url, {method: "POST",})
         .then((response) => response.json())
@@ -80,14 +80,14 @@ export default function App() {
     <ScrollView style={styles.scrollView}>
       <Header />
       <View style={{marginTop: 20, marginLeft: 100, marginRight: 100}}>
-        <Button 
+        <Button
           onPress={() => waterPlant()}
           title="Water Plant"/>
       </View>
       <GraphHeader title = 'Moisture over time: '/>
       <LineChart
         data={{
-          labels: logs.map(log => 
+          labels: logs.map(log =>
             {const date = formatDate(log.datetime);
               return date;})
             .slice(-5),
@@ -128,7 +128,7 @@ export default function App() {
       <GraphHeader title = 'Light over time: '/>
       <LineChart
         data={{
-          labels: logs.map(log => 
+          labels: logs.map(log =>
             {const date = formatDate(log.datetime);
             return date;})
             .slice(-5),
@@ -169,7 +169,7 @@ export default function App() {
       <GraphHeader title = 'Humidity over time: '/>
       <LineChart
         data={{
-          labels: logs.map(log => 
+          labels: logs.map(log =>
             {const date = formatDate(log.datetime);
               return date;})
             .slice(-5),
@@ -210,7 +210,7 @@ export default function App() {
       <GraphHeader title = 'Temperature over time: '/>
       <LineChart
         data={{
-          labels: logs.map(log => 
+          labels: logs.map(log =>
             {const date = formatDate(log.datetime);
               return date;})
             .slice(-5),
@@ -248,7 +248,7 @@ export default function App() {
           borderRadius: 16
         }}
       />
-      
+
       </ScrollView>
     </SafeAreaView>
   );
