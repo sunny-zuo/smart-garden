@@ -6,7 +6,8 @@ import {
   LineChart,
 } from "react-native-chart-kit";
 import GraphHeader from './components/GraphHeader';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const { height } = Dimensions.get("window");
 
