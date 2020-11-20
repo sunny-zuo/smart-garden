@@ -19,7 +19,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 int measurementInterval = 10000;
 
-int pumpDuration = 2000;
+int pumpDuration = 4500;
 
 unsigned long time_now = 0;
 
