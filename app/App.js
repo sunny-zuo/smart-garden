@@ -274,6 +274,49 @@ function HomeScreen() {
         }}
       />
 
+      <GraphHeader title = 'Height over time: '/>
+      <LineChart
+        data={{
+          labels: logs.map(log =>
+            {const date = formatDate(log.datetime);
+            return date;})
+            .slice(-5),
+          datasets: [
+            {
+              data: logs.map(log => log.height).slice(-5)
+            }
+          ]
+        }}
+        width={Dimensions.get("window").width} // from react-native
+        height={220}
+        yAxisSuffix="cm"
+        yAxisInterval={1} // optional, defaults to 1
+        fromZero={true}
+        chartConfig={{
+          backgroundColor: lightGreen1,
+          backgroundGradientToOpacity: 0.4,
+          backgroundGradientFromOpacity: 0.4,
+          backgroundGradientFrom: lightGreen1,
+          backgroundGradientTo: lightGreen1,
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          style: {
+            borderRadius: 16
+          },
+          propsForDots: {
+            r: "4.5",
+            strokeWidth: "2",
+            stroke: darkGreen2
+          }
+        }}
+        bezier
+        style={{
+          marginVertical: 5,
+          borderRadius: 16
+        }}
+      />
+
       </ScrollView>
     </SafeAreaView>
   );
