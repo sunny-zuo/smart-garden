@@ -58,7 +58,7 @@ parser.on('data', (line) => {
             tempLogData.moisture.push(dataValue);
             break;
         case 'humidity':
-            tempLogData.humidity.push(dataValue);
+            tempLogData.humidity.push(dataValue/100);
             break;
     }
 
