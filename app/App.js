@@ -97,14 +97,7 @@ function HomeScreen() {
           onPress={() => waterPlant()}
           title="Water Plant"/>
       </View>
-      <View style={{ marginTop: 20, marginBottom: -20, marginLeft: 100, marginRight: 100, height: 10}}>
-        <Button
-          onPress={() => takePicture()}
-          title="Take Picture"/>
-      </View>
-      <View style={{ alignItems: 'center', height: 300 }}>
-          <Image source={{ uri: 'http://159.203.41.214:5000/api/image/latest' }} style={{ width: '90%', height: undefined, aspectRatio: 1, resizeMode: 'contain', borderRadius: 10}}></Image>
-      </View>
+      
       <GraphHeader title = 'Moisture over time: '/>
       <LineChart
         data={{
@@ -273,7 +266,87 @@ function HomeScreen() {
           borderRadius: 16
         }}
       />
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
+function HeightScreen() {
+  const [logs, setLogs] = useState();
+
+  const getAllLogs = async() => {
+    const url = "http://159.203.41.214:5000/api/logs";
+		try {
+      fetch(url, {method: "GET",})
+        .then((response) => response.json())
+        .then((logs) => {
+          setLogs(logs)
+        })
+		} catch (error) {
+			console.log(error);
+		}
+  }
+  const getRangeLogs = async(start, end) => {
+    const url = `http://159.203.41.214:5000/api/logs/range/${start}/${end}`;
+		try {
+      fetch(url, {method: "GET",})
+        .then((response) => response.json())
+        .then((logs) => {
+          setLogs(logs)
+        })
+		} catch (error) {
+			console.log(error);
+		}
+  }
+  const getOneLog = async(date) => {
+    const url = `http://159.203.41.214:5000/api/logs/${date}`;
+		try {
+      fetch(url, {method: "GET",})
+        .then((response) => response.json())
+        .then((logs) => {
+          setLogs(logs)
+        })
+		} catch (error) {
+			console.log(error);
+		}
+  }
+  const takePicture = () => {
+    const url = `http://10.0.0.11:5000/api/image/take-picture`;
+		try {
+      fetch(url, {method: "POST",})
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+        })
+		} catch (error) {
+			console.log(error);
+		}
+  }
+  const formatDate = date => {
+    const hour = new Date(date).getHours();
+    const minutes = new Date(date).getMinutes();
+    return `${hour}:${minutes}`;
+  }
+
+  useEffect(() => {
+    getAllLogs();
+	}, []);
+
+  if (logs == null) {
+    return null;
+  }
+  return (
+    <SafeAreaView style = {styles.container}>
+    <ScrollView style={styles.scrollView}>
+      <Header />
+      <View style={{ marginTop: 20, marginBottom: 20, marginLeft: 100, marginRight: 100, height: 10}}>
+        <Button
+          onPress={() => takePicture()}
+          title="Take Picture"/>
+      </View>
+      <View style={{ alignItems: 'center', height: 300 }}>
+          <Image source={{ uri: 'http://159.203.41.214:5000/api/image/latest' }} style={{ width: '90%', height: undefined, aspectRatio: 1, resizeMode: 'contain', borderRadius: 10}}></Image>
+      </View>
       <GraphHeader title = 'Height over time: '/>
       <LineChart
         data={{
@@ -316,17 +389,8 @@ function HomeScreen() {
           borderRadius: 16
         }}
       />
-
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function HeightScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Plant height data will eventually go here</Text>
-    </View>
   );
 }
 
