@@ -350,20 +350,17 @@ function HeightScreen() {
       <GraphHeader title = 'Height over time: '/>
       <LineChart
         data={{
-          labels: logs.map(log =>
-            {const date = formatDate(log.datetime);
-              return date;})
-            .slice(-5),
+          labels: ["24 Hours Ago","16 Hours Ago","8 Hours Ago",],
           datasets: [
             {
-              data: logs.map(log => log.temperature).slice(-5)
+              data: logs.map(log => log.temperature).slice(-144)
             }
           ]
         }}
         width={Dimensions.get("window").width} // from react-native
         height={220}
         yAxisSuffix="cm"
-        yAxisInterval={1} // optional, defaults to 1
+        yAxisInterval={100} // optional, defaults to 1
         fromZero={true}
         chartConfig={{
           backgroundColor: lightGreen1,
@@ -378,7 +375,7 @@ function HeightScreen() {
             borderRadius: 16
           },
           propsForDots: {
-            r: "4.5",
+            r: "2",
             strokeWidth: "2",
             stroke: darkGreen2
           }
