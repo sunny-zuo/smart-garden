@@ -1,21 +1,20 @@
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 const Log = require('./models/Log');
-const { measureBrightness } = require('./camera/camera');
+const { measureBrightness, detectHeight } = require('./camera/camera');
 
 // we store temporary data in a json object
 const tempLogData = {
     temperature: [],
     moisture: [],
     humidity: [],
-    brightness: []
+    brightness: [],
+    height[]
 }
 
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
 const parser = new Readline();
 port.pipe(parser);
-
-
 
 function recordBrightness() {
     //console.log(`Awaiting brightness reading`);
@@ -25,7 +24,16 @@ function recordBrightness() {
     });
 }
 
+function recordHeight() {
+    //console.log(`Awaiting brightness reading`);
+    detectHeight().then((height) => {
+        console.log(`Got height: ${height}`);
+        tempLogData.height.push(height);
+    });
+}
+
 setInterval(recordBrightness, 1000 * 10);
+setInterval(recordHeight, 1000 * 10);
 
 function waterPlant() {
     console.log(`Initiating pumping`);
@@ -70,7 +78,8 @@ async function logData() {
         temperature: averageValues(tempLogData.temperature),
         moisture: averageValues(tempLogData.moisture),
         humidity: averageValues(tempLogData.humidity),
-        brightness: averageValues(tempLogData.brightness)
+        brightness: averageValues(tempLogData.brightness),
+        height: averageValues(tempLogData.height)
     });
 
 
@@ -80,6 +89,7 @@ async function logData() {
         tempLogData.moisture = [];
         tempLogData.humidity = [];
         tempLogData.brightness = [];
+        tempLogData.height = [];
         console.log(`Sent logs`);
     }).catch(err => {
         console.log(`Error saving logs: ${err}`);

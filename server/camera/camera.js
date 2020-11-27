@@ -40,6 +40,40 @@ function measureBrightness(useExisting = false, fileName = "latest.jpg") {
     });
 }
 
+// function that calls the python script to detect height
+// by default, detectHeight will take a new photo.
+// If useExisting is set to true, we will instead use an existing photo determined the fileName parameter
+function detectHeight(useExisting = false, fileName = "latest.jpg") {
+    return new Promise(async (resolve, reject) => {
+        if (!useExisting) {
+            await camera.snap().catch(err => {
+                console.log(`Error taking new photo: ${err}`);
+            });
+        }
+
+        let spawn = require('child_process').spawn;
+        // Assume height of reference object is 10cm (last param)
+        py = spawn('python3.7', ['camera/height_detect.py', `camera/${fileName}`, 10]);
+
+        py.stderr.on('data', function(data) {
+            console.error(data.toString());
+        });
+
+        py.stdout.on('data', data => {
+            const output = data.toString();
+            const dataType = output.split(": ")[0];
+            if (dataType === "height") {
+                // if the data is in the right format, assume success and resolve the value
+                resolve(dataValue);
+            }
+            else {
+                reject(`Error excecuting python script, got output: ${data}`);
+            }
+        });
+    });
+}
+
+
 function takePhoto() {
     return new Promise(async (resolve, reject) => {
         await camera.snap().catch(err => {
@@ -51,4 +85,4 @@ function takePhoto() {
 
 //measureBrightness().then((brightness) => console.log(`Got brightness: ${brightness}`));
 
-module.exports = { measureBrightness, takePhoto };
+module.exports = { measureBrightness, detectHeight, takePhoto };

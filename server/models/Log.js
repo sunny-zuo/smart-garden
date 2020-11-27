@@ -25,6 +25,10 @@ const LogSchema = new Schema({
   brightness: {
     type: Number,
     required: true
+  },
+  height: {
+    type: Number,
+    required: true
   }
 });
 

@@ -31,6 +31,8 @@ def detectHeight(image_path, height):
 
     pixelsPerMetric = None
 
+    heights = []
+
     # Loop over each contour
     for c in cnts:
         # Ignore if the contour is not sufficiently large
@@ -72,6 +74,8 @@ def detectHeight(image_path, height):
         dimA = dA / pixelsPerMetric # height
         dimB = dB / pixelsPerMetric # width
 
+        heights.append(dimA)
+
         """
         # Draw outline of the rotated bounding box
         cv2.drawContours(orig, [box.astype("int")], -1, (0, 255, 0), 2)
@@ -104,11 +108,17 @@ def detectHeight(image_path, height):
         cv2.imshow("Image", orig)
         cv2.waitKey(0)"""
 
-    # Currently returns height of rightmost object 
-    return dimA
+    # Currently returns height of tallest object (excluding first item)
+    return max(heights[1:])
+
+print('height: ' + str(detectHeight(sys.argv[1], sys.argv[2])))
+
+
+
+
 
 """
-# Argument parsing
+# Argument parsing for testing
 # Command is python file.py --image image-path.png --height height-num
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,
