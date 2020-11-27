@@ -9,7 +9,7 @@ const tempLogData = {
     moisture: [],
     humidity: [],
     brightness: [],
-    height[]
+    height: []
 }
 
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 });
