@@ -94,6 +94,7 @@ function HomeScreen() {
       <Header />
       <View style={{ marginTop: 20, marginBottom: 20, marginLeft: 100, marginRight: 100, height: 10}}>
         <Button
+          color="dodgerblue"
           onPress={() => waterPlant()}
           title="Water Plant"/>
       </View>
@@ -339,8 +340,9 @@ function HeightScreen() {
     <SafeAreaView style = {styles.container}>
     <ScrollView style={styles.scrollView}>
       <Header />
-      <View style={{ marginTop: 20, marginBottom: 20, marginLeft: 100, marginRight: 100, height: 10}}>
+      <View style={{ marginTop: 20,  marginLeft: 100, marginRight: 100, height: 1}}>
         <Button
+        color = 'lightgreen'
           onPress={() => takePicture()}
           title="Take Picture"/>
       </View>
