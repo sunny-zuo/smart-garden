@@ -1,7 +1,8 @@
 import React, { useState, useEffect, props } from 'react';
 import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView, Button, Image } from 'react-native';
 import Header from './components/Header';
-import {lightGreen1, lightGreen2, lightGreen3, darkGreen1, darkGreen2} from "./components/Colors";
+import PlantCard from './components/PlantCard';
+import {lightGreen1, lightGreen2, lightGreen3, darkGreen1, darkGreen2, white} from "./components/Colors";
 import {
   LineChart,
 } from "react-native-chart-kit";
@@ -90,183 +91,11 @@ function HomeScreen() {
 
   return (
     <SafeAreaView style = {styles.container}>
-    <ScrollView style={styles.scrollView}>
-      <Header />
-      <View style={{ marginTop: 20, marginBottom: 20, marginLeft: 100, marginRight: 100, height: 10}}>
-        <Button
-          color="dodgerblue"
-          onPress={() => waterPlant()}
-          title="Water Plant"/>
-      </View>
-      
-      <GraphHeader title = 'Moisture over time: '/>
-      <LineChart
-        data={{
-          labels: logs.map(log =>
-            {const date = formatDate(log.datetime);
-              return date;})
-            .slice(-5),
-          datasets: [
-            {
-              data: logs.map(log => log.moisture*100).slice(-5)
-            }
-          ]
-        }}
-        width={Dimensions.get("window").width} // from react-native
-        height={220}
-        yAxisSuffix="%"
-        yAxisInterval={1} // optional, defaults to 1
-        fromZero={true}
-        chartConfig={{
-          backgroundColor: lightGreen1,
-          backgroundGradientToOpacity: 0.4,
-          backgroundGradientFromOpacity: 0.4,
-          backgroundGradientFrom: lightGreen1,
-          backgroundGradientTo: lightGreen1,
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16
-          },
-          propsForDots: {
-            r: "4.5",
-            strokeWidth: "2",
-            stroke: darkGreen2
-          }
-        }}
-        bezier
-        style={{
-          marginVertical: 5,
-          borderRadius: 16
-        }}
-      />
-      <GraphHeader title = 'Light over time: '/>
-      <LineChart
-        data={{
-          labels: logs.map(log =>
-            {const date = formatDate(log.datetime);
-            return date;})
-            .slice(-5),
-          datasets: [
-            {
-              data: logs.map(log => log.brightness).slice(-5)
-            }
-          ]
-        }}
-        width={Dimensions.get("window").width} // from react-native
-        height={220}
-        yAxisSuffix="%"
-        yAxisInterval={1} // optional, defaults to 1
-        fromZero={true}
-        chartConfig={{
-          backgroundColor: lightGreen1,
-          backgroundGradientToOpacity: 0.4,
-          backgroundGradientFromOpacity: 0.4,
-          backgroundGradientFrom: lightGreen1,
-          backgroundGradientTo: lightGreen1,
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16
-          },
-          propsForDots: {
-            r: "4.5",
-            strokeWidth: "2",
-            stroke: darkGreen2
-          }
-        }}
-        bezier
-        style={{
-          marginVertical: 5,
-          borderRadius: 16
-        }}
-      />
-      <GraphHeader title = 'Humidity over time: '/>
-      <LineChart
-        data={{
-          labels: logs.map(log =>
-            {const date = formatDate(log.datetime);
-              return date;})
-            .slice(-5),
-          datasets: [
-            {
-              data: logs.map(log => log.humidity).slice(-5)
-            }
-          ]
-        }}
-        width={Dimensions.get("window").width} // from react-native
-        height={220}
-        yAxisSuffix="%"
-        yAxisInterval={1} // optional, defaults to 1
-        fromZero={true}
-        chartConfig={{
-          backgroundColor: lightGreen1,
-          backgroundGradientToOpacity: 0.4,
-          backgroundGradientFromOpacity: 0.4,
-          backgroundGradientFrom: lightGreen1,
-          backgroundGradientTo: lightGreen1,
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16
-          },
-          propsForDots: {
-            r: "4.5",
-            strokeWidth: "2",
-            stroke: darkGreen2
-          }
-        }}
-        bezier
-        style={{
-          marginVertical: 5,
-          borderRadius: 16
-        }}
-      />
-      <GraphHeader title = 'Temperature over time: '/>
-      <LineChart
-        data={{
-          labels: logs.map(log =>
-            {const date = formatDate(log.datetime);
-              return date;})
-            .slice(-5),
-          datasets: [
-            {
-              data: logs.map(log => log.temperature).slice(-5)
-            }
-          ]
-        }}
-        width={Dimensions.get("window").width} // from react-native
-        height={220}
-        yAxisSuffix="°"
-        yAxisInterval={1} // optional, defaults to 1
-        fromZero={true}
-        chartConfig={{
-          backgroundColor: lightGreen1,
-          backgroundGradientToOpacity: 0.4,
-          backgroundGradientFromOpacity: 0.4,
-          backgroundGradientFrom: lightGreen1,
-          backgroundGradientTo: lightGreen1,
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16
-          },
-          propsForDots: {
-            r: "4.5",
-            strokeWidth: "2",
-            stroke: darkGreen2
-          }
-        }}
-        bezier
-        style={{
-          marginVertical: 5,
-          borderRadius: 16
-        }}
-      />
+      <ScrollView style={styles.scrollView}>
+        <Header/>
+        <View style={{ flex: 1 }}>
+          <PlantCard />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -419,11 +248,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 60,
-    backgroundColor: darkGreen2
+    backgroundColor: white
   },
   scrollView: {
-    backgroundColor: darkGreen2
+    backgroundColor: white
   },
   text: {
     fontSize: 50,
