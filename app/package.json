@@ -23,7 +23,8 @@
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.15.0",
     "react-native-svg": "^12.1.0",
-    "react-native-web": "^0.13.18"
+    "react-native-web": "^0.13.18",
+    "victory-native": "^35.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6"

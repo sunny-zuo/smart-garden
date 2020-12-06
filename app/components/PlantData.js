@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ProgressCircle from 'react-native-progress-circle'
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import DataDisplay from './DataDisplay';
+import Chart from './Chart';
 import { darkGreen1, darkGreen2, darkGreen3, white } from './Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -10,7 +11,11 @@ export default function PlantData() {
     const [lastLog, setLastLog] = useState();
 
     useEffect(() => {
-        getAllLogs();
+        getAllLogs().then(logs => {
+            setLogs(logs);
+            setLastLog(logs.slice(-1)[0]);
+        })
+        return;
     }, []);
 
     const waterPlant = () => {
@@ -41,11 +46,10 @@ export default function PlantData() {
     const getAllLogs = async () => {
         const url = "http://159.203.41.214:5000/api/logs";
         try {
-            fetch(url, { method: "GET", })
+            return fetch(url, { method: "GET", })
                 .then((response) => response.json())
                 .then((logs) => {
-                    setLogs(logs);
-                    setLastLog(logs.slice(-1)[0]);
+                    return logs;
                 })
         } catch (error) {
             console.log(error);
@@ -59,7 +63,7 @@ export default function PlantData() {
         return (tempPercent + moisturePercent * 2) * 100 / 3;
     }
 
-    if (!logs || !lastLog) {
+    if (logs === undefined || lastLog === undefined) {
         return null;
     }
 
@@ -100,12 +104,17 @@ export default function PlantData() {
                     <DataDisplay icon={<FontAwesome5 name="ruler-vertical" size={16} color={'#000000'} />} type={'Height'} value={(lastLog.height * 100).toFixed(1)} unit={'m'}/>
                     <DataDisplay icon={<FontAwesome5 name="thermometer-quarter" size={16} color={'#D50000'} />} type={'Temperature'} value={lastLog.temperature.toFixed(1)} unit={'°C'} />
                     <DataDisplay icon={<FontAwesome5 name="tint" size={16} color={'#03A9F4'} />} type={'Moisture'} value={(lastLog.moisture * 100).toFixed(1)} unit={'%'} />
-                    <DataDisplay icon={<FontAwesome5 name="lightbulb" size={16} color={'#FBC02D'} />} type={'Light'} value={(lastLog.brightness * 100).toFixed(1)} unit={'%'} />
+                    <DataDisplay icon={<FontAwesome5 name="lightbulb" size={16} color={'#FBC02D'} />} type={'Light'} value={(lastLog.brightness).toFixed(1)} unit={'%'} />
                 </View>
             </View>
             {/* View of charts*/}
             <View style={styles.chartView}>
                 <Text style={{ fontSize: 22, color: white, fontWeight: "bold", paddingLeft: 14, paddingTop: 8 }}>Statistics</Text>
+                {/*<Chart logs={logs} label={"Height"} color={"#FFFFFF"} domain={{ y: [0, lastLog.height + 1] }} unit={"m"} />*/}
+                <Chart logs={logs} label={"Temperature"} color={"#fb1717"} domain={{ y: [0, 35] }} unit={"°C"} />
+                <Chart logs={logs} label={"Moisture"} color={"#0000A0"} domain={{ y: [0, 100] }} unit={"%"}/>
+                <Chart logs={logs} label={"Brightness"} color={"#FFA500"} domain={{ y: [0, 100] }} unit={"%"}/>
+                <Chart logs={logs} label={"Humidity"} color={"#00FFFF"} domain={{ y: [0, 100] }} unit={"%"}/>
             </View>
         </View>
     );

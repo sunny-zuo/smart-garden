@@ -19,8 +19,8 @@ export default function ImageHeader() {
 
 const styles = StyleSheet.create({
     image: {
-        width: undefined,
-        height: 400,
+        width: "100%",
+        height: undefined,
         aspectRatio: 1,
         resizeMode: 'cover',
         position: 'absolute'

@@ -3,14 +3,6 @@ import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView, Button, I
 import ImageHeader from './components/ImageHeader';
 import PlantData from './components/PlantData';
 import {lightGreen1, lightGreen2, lightGreen3, darkGreen1, darkGreen2, white} from "./components/Colors";
-import {
-  LineChart,
-} from "react-native-chart-kit";
-import GraphHeader from './components/GraphHeader';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-const { height } = Dimensions.get("window");
 
 function HomeScreen() {
   const [logs, setLogs] = useState();
