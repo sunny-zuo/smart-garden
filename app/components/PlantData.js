@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import ProgressCircle from 'react-native-progress-circle'
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import DataDisplay from './DataDisplay';
-import { darkGreen1, darkGreen2, white } from './Colors';
+import { darkGreen1, darkGreen2, darkGreen3, white } from './Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function PlantData() {
@@ -66,7 +66,7 @@ export default function PlantData() {
     return (
         <View style={styles.card}>
             <Text style={styles.title}>Garlic Plant</Text>
-            {/* View for the */}
+            {/* View for the overview of most recent data*/}
             <View style={styles.majorDataView}>
                 <View style={{ flex: 0.5, alignItems: 'center' }}>
                     <View>
@@ -103,7 +103,10 @@ export default function PlantData() {
                     <DataDisplay icon={<FontAwesome5 name="lightbulb" size={16} color={'#FBC02D'} />} type={'Light'} value={(lastLog.brightness * 100).toFixed(1)} unit={'%'} />
                 </View>
             </View>
-
+            {/* View of charts*/}
+            <View style={styles.chartView}>
+                <Text style={{ fontSize: 22, color: white, fontWeight: "bold", paddingLeft: 14, paddingTop: 8 }}>Statistics</Text>
+            </View>
         </View>
     );
 };
@@ -111,8 +114,7 @@ export default function PlantData() {
 const styles = StyleSheet.create({
     card: {
         margin: 0,
-        padding: 10,
-        width: '100%',
+        width: Dimensions.get('window').width,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         backgroundColor: white,
@@ -126,13 +128,15 @@ const styles = StyleSheet.create({
         fontSize: 26,
         textAlign: 'left',
         fontWeight: 'bold',
-        paddingLeft: 14,
-        paddingTop: 4,
+        paddingLeft: 24,
+        paddingTop: 14,
     },
     majorDataView: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 20,
+        padding: 10
     },
     button: {
         backgroundColor: '#0277BD',
@@ -140,5 +144,16 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 16,
         width: 120
-    }
+    },
+    chartView: {
+        margin: 0,
+        marginLeft: 0,
+        padding: 10,
+        width: '100%',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        backgroundColor: darkGreen3,
+        position: 'relative',
+        flex: 1
+    },
 });
