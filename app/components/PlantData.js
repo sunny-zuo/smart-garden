@@ -67,9 +67,13 @@ export default function PlantData() {
     }
 
     const updateDateRange = (hours) => {
-        setSelectedTime(hours);
-        setLogURL(`http://159.203.41.214:5000/api/logs/range/${new Date(Date.now() - 1000 * 60 * 60 * hours).toISOString()}/${new Date().toISOString()}`);
+        if (hours) {
+            setSelectedTime(hours);
+            setLogURL(`http://159.203.41.214:5000/api/logs/range/${new Date(Date.now() - 1000 * 60 * 60 * hours).toISOString()}/${new Date().toISOString()}`);
+        }
     }
+
+    const leftAxisText = (selectedTime > 24) ? `${(selectedTime/24).toFixed(0)} Days Ago` : `${selectedTime} Hours Ago`
 
     if (logs === undefined || lastLog === undefined) {
         return null;
@@ -134,11 +138,11 @@ export default function PlantData() {
                     </View>
                 </View>
                 
-                {/*<Chart logs={logs} label={"Height"} color={"#FFFFFF"} domain={{ y: [0, lastLog.height + 1] }} unit={"m"} />*/}
-                <Chart logs={logs} label={"Temperature"} color={"#fb1717"} domain={{ y: [0, 35] }} unit={"°C"} />
-                <Chart logs={logs} label={"Moisture"} color={"#0000A0"} domain={{ y: [0, 100] }} unit={"%"}/>
-                <Chart logs={logs} label={"Brightness"} color={"#FFA500"} domain={{ y: [0, 100] }} unit={"%"}/>
-                <Chart logs={logs} label={"Humidity"} color={"#00FFFF"} domain={{ y: [0, 100] }} unit={"%"}/>
+                {/*<Chart logs={logs} label={"Height"} color={"#FFFFFF"} domain={{ y: [0, lastLog.height + 1] }} unit={"m"} leftAxisText={leftAxisText}/>*/}
+                <Chart logs={logs} label={"Temperature"} color={"#fb1717"} domain={{ y: [0, 35] }} unit={"°C"} leftAxisText={leftAxisText}/>
+                <Chart logs={logs} label={"Moisture"} color={"#0000A0"} domain={{ y: [0, 100] }} unit={"%"} leftAxisText={leftAxisText}/>
+                <Chart logs={logs} label={"Brightness"} color={"#FFA500"} domain={{ y: [0, 100] }} unit={"%"} leftAxisText={leftAxisText}/>
+                <Chart logs={logs} label={"Humidity"} color={"#00FFFF"} domain={{ y: [0, 100] }} unit={"%"} leftAxisText={leftAxisText}/>
             </View>
         </View>
     );

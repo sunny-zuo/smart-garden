@@ -48,7 +48,7 @@ export default function Chart(props) {
                 />
             </VictoryChart>
             <View style={{ position: "absolute", bottom: 0, left: 24 }}>
-                <Text style={styles.graphLabelText}>24 Hours Ago</Text>
+                <Text style={styles.graphLabelText}>{props.leftAxisText}</Text>
             </View>
             <View style={{ position: "absolute", bottom: 0, right: 16 }}>
                 <Text style={styles.graphLabelText}>Now</Text>
