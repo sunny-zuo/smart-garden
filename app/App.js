@@ -1,7 +1,7 @@
 import React, { useState, useEffect, props } from 'react';
 import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView, Button, Image } from 'react-native';
-import Header from './components/Header';
-import PlantCard from './components/PlantCard';
+import ImageHeader from './components/ImageHeader';
+import PlantData from './components/PlantData';
 import {lightGreen1, lightGreen2, lightGreen3, darkGreen1, darkGreen2, white} from "./components/Colors";
 import {
   LineChart,
@@ -92,10 +92,8 @@ function HomeScreen() {
   return (
     <SafeAreaView style = {styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Header/>
-        <View style={{ flex: 1 }}>
-          <PlantCard />
-        </View>
+        <ImageHeader/>
+        <PlantData />
       </ScrollView>
     </SafeAreaView>
   );
@@ -251,7 +249,7 @@ const styles = StyleSheet.create({
     backgroundColor: white
   },
   scrollView: {
-    backgroundColor: white
+    backgroundColor: white,
   },
   text: {
     fontSize: 50,
