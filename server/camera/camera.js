@@ -62,6 +62,7 @@ function detectHeight(useExisting = false, fileName = "latest.jpg") {
         py.stdout.on('data', data => {
             const output = data.toString();
             const dataType = output.split(": ")[0];
+            const dataValue = parseFloat(output.split(": ")[1]);
             if (dataType === "height") {
                 // if the data is in the right format, assume success and resolve the value
                 resolve(dataValue);
