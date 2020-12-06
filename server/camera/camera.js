@@ -43,7 +43,7 @@ function measureBrightness(useExisting = false, fileName = "latest.jpg") {
 // function that calls the python script to detect height
 // by default, detectHeight will take a new photo.
 // If useExisting is set to true, we will instead use an existing photo determined the fileName parameter
-function detectHeight(useExisting = false, fileName = "latest.jpg") {
+function detectHeight(useExisting = true, fileName = "latest.jpg") {
     return new Promise(async (resolve, reject) => {
         if (!useExisting) {
             await camera.snap().catch(err => {
@@ -65,7 +65,6 @@ function detectHeight(useExisting = false, fileName = "latest.jpg") {
             const dataValue = parseFloat(output.split(": ")[1]);
             if (dataType === "height") {
                 // if the data is in the right format, assume success and resolve the value
-                console.log("BRUH MOMENT" + dataValue);
 
                 resolve(dataValue);
             }
