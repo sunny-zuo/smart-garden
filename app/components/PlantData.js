@@ -7,6 +7,7 @@ import { darkGreen1, darkGreen2, darkGreen3, white } from './Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function PlantData() {
+    const [logURL, setLogURL] = useState(`http://159.203.41.214:5000/api/logs/range/${new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString()}/${new Date().toISOString()}`)
     const [logs, setLogs] = useState();
     const [lastLog, setLastLog] = useState();
 
@@ -44,7 +45,7 @@ export default function PlantData() {
     }
     
     const getAllLogs = async () => {
-        const url = "http://159.203.41.214:5000/api/logs";
+        const url = logURL;
         try {
             return fetch(url, { method: "GET", })
                 .then((response) => response.json())

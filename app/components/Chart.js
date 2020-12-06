@@ -15,7 +15,7 @@ export default function Chart(props) {
                 return { x: counter++, y: log[props.label.toLowerCase()] }; 
             }
             return { x: counter++, y: log[props.label.toLowerCase()] * 100 };
-        }).slice(-144)
+        })
     }
 
     return (
