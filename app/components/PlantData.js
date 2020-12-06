@@ -3,11 +3,13 @@ import ProgressCircle from 'react-native-progress-circle'
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import DataDisplay from './DataDisplay';
 import Chart from './Chart';
+import RNPickerSelect from 'react-native-picker-select';
 import { darkGreen1, darkGreen2, darkGreen3, white } from './Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function PlantData() {
-    const [logURL, setLogURL] = useState(`http://159.203.41.214:5000/api/logs/range/${new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString()}/${new Date().toISOString()}`)
+    const [logURL, setLogURL] = useState(`http://159.203.41.214:5000/api/logs/range/${new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString()}/${new Date().toISOString()}`);
+    const [selectedTime, setSelectedTime] = useState(24);
     const [logs, setLogs] = useState();
     const [lastLog, setLastLog] = useState();
 
@@ -17,7 +19,7 @@ export default function PlantData() {
             setLastLog(logs.slice(-1)[0]);
         })
         return;
-    }, []);
+    }, [logURL]);
 
     const waterPlant = () => {
         const url = `http://10.0.0.11:5000/api/controls/water`;
@@ -62,6 +64,11 @@ export default function PlantData() {
         const tempPercent = (15 <= log.temperature && log.temperature <= 30) ? 1 : 1 / Math.abs(log.temperature - 22) * 7;
         const moisturePercent = log.moisture;
         return (tempPercent + moisturePercent * 2) * 100 / 3;
+    }
+
+    const updateDateRange = (hours) => {
+        setSelectedTime(hours);
+        setLogURL(`http://159.203.41.214:5000/api/logs/range/${new Date(Date.now() - 1000 * 60 * 60 * hours).toISOString()}/${new Date().toISOString()}`);
     }
 
     if (logs === undefined || lastLog === undefined) {
@@ -110,7 +117,23 @@ export default function PlantData() {
             </View>
             {/* View of charts*/}
             <View style={styles.chartView}>
-                <Text style={{ fontSize: 22, color: white, fontWeight: "bold", paddingLeft: 14, paddingTop: 8 }}>Statistics</Text>
+                <View style={{ flex: 1, flexDirection: "row", justifyContent: 'space-between' }}>
+                    <View style={{ flex: 0.65 }}>
+                        <Text style={{ fontSize: 22, color: white, fontWeight: "bold", paddingLeft: 14, paddingTop: 8 }}>Statistics</Text>
+                    </View>
+                    <View style={{ flex: 0.35, marginRight: -10, marginTop: -2 }}>
+                        <RNPickerSelect
+                            value={selectedTime}
+                            onValueChange={(value) => updateDateRange(value)}
+                            items={[
+                                { label: '24 Hours', value: 24, color: 'orange' },
+                                { label: '3 Days', value: 72, color: 'orange' },
+                                { label: '7 Days', value: 168, color: 'orange' },
+                            ]}
+                        />
+                    </View>
+                </View>
+                
                 {/*<Chart logs={logs} label={"Height"} color={"#FFFFFF"} domain={{ y: [0, lastLog.height + 1] }} unit={"m"} />*/}
                 <Chart logs={logs} label={"Temperature"} color={"#fb1717"} domain={{ y: [0, 35] }} unit={"°C"} />
                 <Chart logs={logs} label={"Moisture"} color={"#0000A0"} domain={{ y: [0, 100] }} unit={"%"}/>
