@@ -1,6 +1,6 @@
 import React from 'react';
 import ProgressCircle from 'react-native-progress-circle'
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import DataDisplay from './DataDisplay';
 import { darkGreen1, darkGreen2, white } from './Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -11,14 +11,32 @@ const PlantData = () => {
             <Text style={styles.title}>Garlic Plant</Text>
             <View style={styles.majorDataView}>
                 <View style={{ flex: 0.5, alignItems: 'center' }}>
-                    <ProgressCircle percent={86} radius={50} borderWidth={4} color={darkGreen1} shadowColor={"#CDCDCD"} bgColor={white}>
-                        <Text style={{ color: darkGreen1 }}>
-                            <Text style={{ fontSize: 30 }}>{'86'}</Text><Text style={{ fontSize: 14 }}>%</Text>
+                    <View>
+                        <ProgressCircle percent={86} radius={50} borderWidth={4} color={darkGreen1} shadowColor={"#CDCDCD"} bgColor={white}>
+                            <Text style={{ color: darkGreen1 }}>
+                                <Text style={{ fontSize: 30 }}>{'86'}</Text><Text style={{ fontSize: 14 }}>%</Text>
+                            </Text>
+                            <Text style={{ color: darkGreen1, fontSize: 10 }}>
+                                HEALTH
                         </Text>
-                        <Text style={{ color: darkGreen1, fontSize: 10 }}>
-                            HEALTH
-                        </Text>
-                    </ProgressCircle>
+                        </ProgressCircle>
+                    </View>
+                    <View style={{ paddingTop: 32 }}>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={console.log('hi')}
+                        >
+                            <Text style={{ color: white }}><FontAwesome5 name="tint" size={16} color={white} /> Water Plant</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ paddingTop: 12 }}>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={console.log('hi')}
+                        >
+                            <Text style={{ color: white }}><FontAwesome5 name="camera" size={16} color={white} /> Take Picture</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={{ flex: 0.5, paddingLeft: 40 }}>
                     <DataDisplay icon={<FontAwesome5 name="ruler-vertical" size={16} color={'#000000'}/>} type={'Height'} value={'0.324'} unit={'m'}/>
@@ -56,6 +74,13 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         marginTop: 20
+    },
+    button: {
+        backgroundColor: '#0277BD',
+        alignItems: 'center',
+        padding: 10,
+        borderRadius: 16,
+        width: 120
     }
 });
 
