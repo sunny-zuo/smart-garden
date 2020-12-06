@@ -110,12 +110,18 @@ def detectHeight(image_path, height):
         cv2.waitKey(0)"""
 
     # Currently returns height of tallest object (excluding first item)
-    if (len(heights) == 0) {
+    ''' hotfixing the hotfix?
+    if (len(heights) == 0):
         return 0
-    } elif (len(heights) == 1) {
+    elif (len(heights) == 1):
         return heights[0]
-    }
-    return max(heights[1:])
+    return max(heights[1:]) '''
+    if (len(heights) == 0):
+        return 0
+    elif (len(heights) == 1):
+        return heights[0]
+    else:
+        return max(heights[1:])
 
 print('height: ' + str(detectHeight(sys.argv[1], sys.argv[2])))
 
