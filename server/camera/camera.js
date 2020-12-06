@@ -65,6 +65,8 @@ function detectHeight(useExisting = false, fileName = "latest.jpg") {
             const dataValue = parseFloat(output.split(": ")[1]);
             if (dataType === "height") {
                 // if the data is in the right format, assume success and resolve the value
+                console.log("BRUH MOMENT" + dataValue);
+
                 resolve(dataValue);
             }
             else {
