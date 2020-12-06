@@ -51,30 +51,7 @@ function HomeScreen() {
 			console.log(error);
 		}
   }
-  const waterPlant = () => {
-    const url = `http://10.0.0.11:5000/api/controls/water`;
-		try {
-      fetch(url, {method: "POST",})
-        .then((response) => response.json())
-        .then((json) => {
-          console.log(json);
-        })
-		} catch (error) {
-			console.log(error);
-		}
-  }
-  const takePicture = () => {
-    const url = `http://10.0.0.11:5000/api/image/take-picture`;
-		try {
-      fetch(url, {method: "POST",})
-        .then((response) => response.json())
-        .then((json) => {
-          console.log(json);
-        })
-		} catch (error) {
-			console.log(error);
-		}
-  }
+
   const formatDate = date => {
     const hour = new Date(date).getHours();
     const minutes = new Date(date).getMinutes();

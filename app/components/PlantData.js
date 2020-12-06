@@ -5,7 +5,32 @@ import DataDisplay from './DataDisplay';
 import { darkGreen1, darkGreen2, white } from './Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const PlantData = () => {
+export default function PlantData() {
+    const waterPlant = () => {
+        const url = `http://10.0.0.11:5000/api/controls/water`;
+        try {
+            fetch(url, { method: "POST", })
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const takePicture = () => {
+        const url = `http://10.0.0.11:5000/api/image/take-picture`;
+        try {
+            fetch(url, { method: "POST", })
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <View style={styles.card}>
             <Text style={styles.title}>Garlic Plant</Text>
@@ -24,7 +49,7 @@ const PlantData = () => {
                     <View style={{ paddingTop: 32 }}>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={console.log('hi')}
+                            onPress={() => waterPlant()}
                         >
                             <Text style={{ color: white }}><FontAwesome5 name="tint" size={16} color={white} /> Water Plant</Text>
                         </TouchableOpacity>
@@ -32,7 +57,7 @@ const PlantData = () => {
                     <View style={{ paddingTop: 12 }}>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={console.log('hi')}
+                            onPress={() => takePicture()}
                         >
                             <Text style={{ color: white }}><FontAwesome5 name="camera" size={16} color={white} /> Take Picture</Text>
                         </TouchableOpacity>
@@ -83,5 +108,3 @@ const styles = StyleSheet.create({
         width: 120
     }
 });
-
-export default PlantData;
