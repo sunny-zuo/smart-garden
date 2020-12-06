@@ -28,8 +28,11 @@ def detectHeight(image_path, height):
     cnts = imutils.grab_contours(cnts)
 
     # Sort the contours from left-to-right
-    (cnts, _) = contours.sort_contours(cnts)
-
+    #this is jank as hell but it should handle the error we're getting
+    try:
+        (cnts, _) = contours.sort_contours(cnts)
+    except:
+        return [0, 0]
     pixelsPerMetric = None
 
     heights = []
@@ -117,7 +120,7 @@ def detectHeight(image_path, height):
         return heights[0]
     return max(heights[1:]) '''
     if (len(heights) == 0):
-        return [0, 0]
+        return [0,0]
     elif (len(heights) == 1):
         return heights[0]
     else:
