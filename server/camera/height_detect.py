@@ -10,7 +10,7 @@ import sys
 def midpoint(ptA, ptB):
 	return ((ptA[0] + ptB[0]) * 0.5, (ptA[1] + ptB[1]) * 0.5)
 
-def detectHeight(image_path, height): 
+def detectHeight(image_path, height):
     # Load image
     image = cv2.imread(image_path)
     #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Converts to grayscale
@@ -32,7 +32,7 @@ def detectHeight(image_path, height):
     try:
         (cnts, _) = contours.sort_contours(cnts)
     except:
-        return [0, 0]
+        return 0
     pixelsPerMetric = None
 
     heights = []
@@ -42,17 +42,17 @@ def detectHeight(image_path, height):
         # Ignore if the contour is not sufficiently large
         if cv2.contourArea(c) < 100:
             continue
-        
+
         # Compute rotated bounding box of contour
         orig = image.copy()
         box = cv2.minAreaRect(c)
         box = cv2.cv.BoxPoints(box) if imutils.is_cv2() else cv2.boxPoints(box)
         box = np.array(box, dtype="int")
-        
+
         # Order the points in the contour such that they appear
-        # in top-left, top-right, bottom-right, and bottom-left order, 
+        # in top-left, top-right, bottom-right, and bottom-left order,
         box = perspective.order_points(box)
-        
+
         # Unpack the ordered bounding box, then compute the midpoint
         # between the top-left and top-right coordinates and
         # the midpoint between bottom-left and bottom-right coordinates
@@ -68,12 +68,12 @@ def detectHeight(image_path, height):
         # Compute the Euclidean distance between the midpoints
         dA = dist.euclidean((tltrX, tltrY), (blbrX, blbrY))
         dB = dist.euclidean((tlblX, tlblY), (trbrX, trbrY))
-        
+
         # If the pixels per metric has not been initialized, then
         # compute it as the ratio of pixels to centimetres
         if pixelsPerMetric is None:
-            pixelsPerMetric = dA / height
-        
+            pixelsPerMetric = dA / float(height)
+
         # Compute the size of the object
         dimA = dA / pixelsPerMetric # height
         dimB = dB / pixelsPerMetric # width
@@ -83,11 +83,11 @@ def detectHeight(image_path, height):
         """
         # Draw outline of the rotated bounding box
         cv2.drawContours(orig, [box.astype("int")], -1, (0, 255, 0), 2)
-        
+
         # Loop over the points and draw them
         for (x, y) in box:
             cv2.circle(orig, (int(x), int(y)), 5, (0, 0, 255), -1)
-        
+
         # Draw the midpoints on the image
         cv2.circle(orig, (int(tltrX), int(tltrY)), 5, (255, 0, 0), -1)
         cv2.circle(orig, (int(blbrX), int(blbrY)), 5, (255, 0, 0), -1)
@@ -120,7 +120,7 @@ def detectHeight(image_path, height):
         return heights[0]
     return max(heights[1:]) '''
     if (len(heights) == 0):
-        return [0,0]
+        return 0
     elif (len(heights) == 1):
         return heights[0]
     else:
