@@ -104,7 +104,7 @@ export default function PlantData() {
                     <DataDisplay icon={<FontAwesome5 name="ruler-vertical" size={16} color={'#000000'} />} type={'Height'} value={(lastLog.height * 100).toFixed(1)} unit={'m'}/>
                     <DataDisplay icon={<FontAwesome5 name="thermometer-quarter" size={16} color={'#D50000'} />} type={'Temperature'} value={lastLog.temperature.toFixed(1)} unit={'°C'} />
                     <DataDisplay icon={<FontAwesome5 name="tint" size={16} color={'#03A9F4'} />} type={'Moisture'} value={(lastLog.moisture * 100).toFixed(1)} unit={'%'} />
-                    <DataDisplay icon={<FontAwesome5 name="lightbulb" size={16} color={'#FBC02D'} />} type={'Light'} value={(lastLog.brightness).toFixed(1)} unit={'%'} />
+                    <DataDisplay icon={<FontAwesome5 name="lightbulb" size={16} color={'#FBC02D'} />} type={'Light'} value={(lastLog.brightness * 100).toFixed(1)} unit={'%'} />
                 </View>
             </View>
             {/* View of charts*/}
