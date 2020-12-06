@@ -11,7 +11,10 @@ export default function Chart(props) {
     const formatData = logs => {
         let counter = 1;
         return logs.map(log => {
-            return { x: counter++, y: log[props.label.toLowerCase()] };
+            if (props.label === "Temperature") {
+                return { x: counter++, y: log[props.label.toLowerCase()] }; 
+            }
+            return { x: counter++, y: log[props.label.toLowerCase()] * 100 };
         }).slice(-144)
     }
 
