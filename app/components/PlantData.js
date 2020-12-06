@@ -66,10 +66,11 @@ export default function PlantData() {
     return (
         <View style={styles.card}>
             <Text style={styles.title}>Garlic Plant</Text>
+            {/* View for the */}
             <View style={styles.majorDataView}>
                 <View style={{ flex: 0.5, alignItems: 'center' }}>
                     <View>
-                        <ProgressCircle percent={calculateHealth(lastLog).toFixed(0)} radius={50} borderWidth={4} color={darkGreen1} shadowColor={"#CDCDCD"} bgColor={white}>
+                        <ProgressCircle percent={calculateHealth(lastLog)} radius={50} borderWidth={4} color={darkGreen1} shadowColor={"#CDCDCD"} bgColor={white}>
                             <Text style={{ color: darkGreen1 }}>
                                 <Text style={{ fontSize: 30 }}>{calculateHealth(lastLog).toFixed(0)}</Text><Text style={{ fontSize: 14 }}>%</Text>
                             </Text>
@@ -102,6 +103,7 @@ export default function PlantData() {
                     <DataDisplay icon={<FontAwesome5 name="lightbulb" size={16} color={'#FBC02D'} />} type={'Light'} value={(lastLog.brightness * 100).toFixed(1)} unit={'%'} />
                 </View>
             </View>
+
         </View>
     );
 };
