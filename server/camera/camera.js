@@ -68,7 +68,7 @@ function detectHeight(useExisting = false, fileName = "latest.jpg") {
                 resolve(dataValue);
             }
             else {
-                reject(`Error excecuting python script, got output: ${data}`);
+                reject(`Error executing python script, got output: ${data}`);
             }
         });
     });
