@@ -117,7 +117,7 @@ def detectHeight(image_path, height):
         return heights[0]
     return max(heights[1:]) '''
     if (len(heights) == 0):
-        return 0
+        return [0, 0]
     elif (len(heights) == 1):
         return heights[0]
     else:
