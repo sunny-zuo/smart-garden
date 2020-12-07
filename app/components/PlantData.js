@@ -113,7 +113,7 @@ export default function PlantData() {
                     </View>
                 </View>
                 <View style={{ flex: 0.5, paddingLeft: 40 }}>
-                    <DataDisplay icon={<FontAwesome5 name="ruler-vertical" size={16} color={'#000000'} />} type={'Height'} value={(lastLog.height * 100).toFixed(1)} unit={'m'}/>
+                    <DataDisplay icon={<FontAwesome5 name="ruler-vertical" size={16} color={'#000000'} />} type={'Height'} value={(lastLog.height).toFixed(1)} unit={'cm'}/>
                     <DataDisplay icon={<FontAwesome5 name="thermometer-quarter" size={16} color={'#D50000'} />} type={'Temperature'} value={lastLog.temperature.toFixed(1)} unit={'°C'} />
                     <DataDisplay icon={<FontAwesome5 name="tint" size={16} color={'#03A9F4'} />} type={'Moisture'} value={(lastLog.moisture * 100).toFixed(1)} unit={'%'} />
                     <DataDisplay icon={<FontAwesome5 name="lightbulb" size={16} color={'#FBC02D'} />} type={'Light'} value={(lastLog.brightness * 100).toFixed(1)} unit={'%'} />
