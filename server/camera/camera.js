@@ -18,7 +18,7 @@ function measureBrightness(useExisting = false, fileName = "latest.jpg") {
         }
 
         let spawn = require('child_process').spawn;
-        py = spawn('python3.7', ['camera/measure_brightness.py', `camera/${fileName}`]);
+        py = spawn('python3', ['camera/measure_brightness.py', `camera/${fileName}`]);
 
         py.stderr.on('data', function(data) {
             console.error(data.toString());
