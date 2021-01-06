@@ -84,7 +84,7 @@ $ npm start
 
 ## Authors
 
-* [Sunny Zuo](https://github.com/sunny-zuo), [Elena Pan](https://github.com/elena-pan), [Umut Emre](https://github.com/umutcanemre), [Chris Fang](https://github.com/AntiChange) and Dhananjay Patki
+* [Sunny Zuo](https://github.com/sunny-zuo), [Elena Pan](https://github.com/elena-pan), [Umut Emre](https://github.com/umutcanemre), [Chris Fang](https://github.com/AntiChange) and [Dhananjay Patki](https://github.com/dpatki)
 
 ## Credits
 
