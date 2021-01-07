@@ -56,9 +56,7 @@ $ cd smart-garden/server
 $ npm install
 
 # Install Python dependencies
-$ cd camera
-$ python3 -m pip install -r requirements.txt
-$ cd ..
+$ python3 -m pip install -r camera/requirements.txt
 
 # Run the server
 $ npm start
